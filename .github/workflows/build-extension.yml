@@ -1,0 +1,65 @@
+name: Build Chrome extension
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "extension/**"
+      - ".github/workflows/build-extension.yml"
+  pull_request:
+    paths:
+      - "extension/**"
+      - ".github/workflows/build-extension.yml"
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Validate and package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Validate extension manifest and required files
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("extension")
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+          assert manifest.get("manifest_version") == 3, "Expected Manifest V3"
+          for required in ("popup.html", "popup.js", "background.js", "content.js"):
+              assert (root / required).is_file(), f"Missing {required}"
+          for size in (16, 32, 48, 128):
+              icon = root / "icons" / f"icon{size}.png"
+              assert icon.is_file(), f"Missing {icon}"
+          print(f"Validated {manifest.get('name')} {manifest.get('version')}")
+          PY
+
+      - name: Package extension
+        run: |
+          mkdir -p dist
+          cd extension
+          zip -r ../dist/hiven-extension.zip . -x "*/.DS_Store" "*/Thumbs.db"
+          cd ..
+          unzip -l dist/hiven-extension.zip
+
+      - name: Upload installable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: hiven-chrome-extension
+          path: dist/hiven-extension.zip
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Attach ZIP to published release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/hiven-extension.zip --clobber

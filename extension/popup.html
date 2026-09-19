@@ -1,101 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Hiven</title>
-    <style>
-      :root { color-scheme: light; }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        width: 340px;
-        font: 13px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-        background: #f5f5f7;
-        color: #1d1d1f;
-      }
-      header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 16px 16px 8px;
-      }
-      header img { width: 28px; height: 28px; border-radius: 7px; }
-      header strong {
-        font-size: 17px;
-        letter-spacing: -0.03em;
-        font-weight: 600;
-      }
-      .sub {
-        margin: 0;
-        padding: 0 16px 14px;
-        color: #6e6e73;
-        font-size: 13px;
-      }
-      button {
-        border: 0;
-        font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        cursor: pointer;
-      }
-      #scan {
-        margin: 0 16px 12px;
-        width: calc(100% - 32px);
-        height: 40px;
-        border-radius: 980px;
-        background: #ff3b30;
-        color: #fff;
-      }
-      #scan:disabled { opacity: 0.45; cursor: default; }
-      #status {
-        margin: 0 16px 8px;
-        color: #86868b;
-        font-size: 12px;
-        min-height: 1.2em;
-      }
-      #list { padding: 0 10px 12px; }
-      .row {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        padding: 10px 8px;
-        border-radius: 12px;
-        background: #fff;
-        margin-bottom: 6px;
-      }
-      .meta { min-width: 0; flex: 1; }
-      .meta p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .kind { color: #86868b; font-size: 11px; }
-      .save, .held {
-        flex-shrink: 0;
-        height: 32px;
-        padding: 0 12px;
-        border-radius: 980px;
-      }
-      .save { background: #ff3b30; color: #fff; }
-      .held { background: #ececef; color: #6e6e73; }
-      footer {
-        display: flex;
-        justify-content: space-between;
-        gap: 8px;
-        padding: 12px 16px 16px;
-        color: #86868b;
-        font-size: 11px;
-      }
-      footer a { color: #ff3b30; text-decoration: none; }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Hiven</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f5f5f7; --surface:rgba(255,255,255,.82); --text:#1d1d1f; --muted:#6e6e73; --line:rgba(60,60,67,.12); --accent:#0071e3; --accent-hover:#0077ed; --green:#248a3d; --shadow:0 12px 32px rgba(0,0,0,.07); }
+    @media (prefers-color-scheme: dark) { :root { --bg:#171719; --surface:#242426; --text:#f5f5f7; --muted:#a1a1a6; --line:rgba(255,255,255,.1); --accent:#2997ff; --accent-hover:#45a5ff; --green:#30d158; --shadow:0 12px 32px rgba(0,0,0,.24); } }
+    * { box-sizing:border-box; }
+    body { margin:0; width:380px; max-height:600px; overflow:auto; background:var(--bg); color:var(--text); font:13px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",sans-serif; letter-spacing:-.01em; }
+    .shell { padding:18px; }
+    header { display:flex; align-items:center; gap:11px; }
+    .brand-icon { width:40px; height:40px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,.12); }
+    .brand-copy { flex:1; min-width:0; }
+    .brand-copy h1 { margin:0; font-size:21px; line-height:1.15; letter-spacing:-.045em; font-weight:700; }
+    .eyebrow { margin:4px 0 0; color:var(--muted); font-size:11px; }
+    .badge { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:5px 9px; color:var(--muted); font-size:11px; white-space:nowrap; }
+    .dot { width:6px; height:6px; border-radius:50%; background:var(--green); }
+    .intro { margin:17px 0 14px; color:var(--muted); font-size:12px; line-height:1.55; }
+    #scan { display:flex; justify-content:center; align-items:center; gap:8px; width:100%; height:44px; border:0; border-radius:13px; background:var(--accent); color:#fff; font:600 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; box-shadow:0 4px 10px rgba(0,113,227,.18); transition:background .15s,transform .15s; }
+    #scan:hover { background:var(--accent-hover); } #scan:active { transform:scale(.99); } #scan:disabled { opacity:.55; cursor:wait; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; margin:21px 2px 9px; }
+    .section-head h2 { margin:0; font-size:13px; font-weight:650; letter-spacing:-.015em; }
+    #status { margin:0; color:var(--muted); font-size:11px; }
+    #list { display:grid; gap:8px; }
+    .row { display:flex; align-items:center; gap:10px; min-width:0; padding:11px; border:1px solid var(--line); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); }
+    .media-icon { display:grid; place-items:center; flex:0 0 34px; height:34px; border-radius:10px; background:rgba(0,113,227,.09); color:var(--accent); font-size:15px; }
+    .meta { flex:1; min-width:0; }
+    .meta p { margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .meta p:first-child { font-weight:600; font-size:12px; }
+    .kind { margin-top:3px!important; color:var(--muted); font-size:10px; }
+    .save,.held { flex-shrink:0; min-width:57px; height:30px; padding:0 11px; border:0; border-radius:9px; font:600 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .save { background:var(--accent); color:#fff; cursor:pointer; } .save:hover { background:var(--accent-hover); } .save:disabled { opacity:.6; cursor:wait; }
+    .held { background:rgba(120,120,128,.14); color:var(--muted); cursor:not-allowed; }
+    .empty { padding:23px 14px; text-align:center; border:1px dashed var(--line); border-radius:14px; color:var(--muted); background:var(--surface); }
+    .empty-icon { display:block; margin-bottom:8px; font-size:22px; opacity:.75; }
+    .empty strong { display:block; margin-bottom:4px; color:var(--text); font-size:12px; }
+    .empty p { margin:0; font-size:11px; }
+    footer { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:19px; padding-top:13px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+    footer a { color:var(--accent); font-weight:600; text-decoration:none; } footer a:hover { text-decoration:underline; }
+    button:focus-visible,a:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 45%,transparent); outline-offset:2px; }
+    @media (prefers-reduced-motion:reduce) { * { transition:none!important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
     <header>
-      <img src="icons/icon32.png" alt="" width="28" height="28" />
-      <strong>Hiven</strong>
+      <img class="brand-icon" src="icons/icon32.png" alt="" width="40" height="40" />
+      <div class="brand-copy"><h1>Hiven</h1><p class="eyebrow">Media tools, made simple.</p></div>
+      <span class="badge"><span class="dot"></span> Ready</span>
     </header>
-    <p class="sub">Scan this tab for accessible video. Hiven will not extract YouTube, defeat DRM, or bypass access controls.</p>
-    <button id="scan" type="button">Scan this tab</button>
-    <p id="status"></p>
-    <div id="list"></div>
-    <footer>
-      <span>v0.1.1</span>
-      <a href="https://matthewcodergamer.github.io/Hiven/" target="_blank" rel="noreferrer">Website</a>
-    </footer>
-    <script src="popup.js"></script>
-  </body>
+    <p class="intro">Find accessible videos on the page you’re viewing. Save media when the site and format allow it.</p>
+    <button id="scan" type="button"><span aria-hidden="true">⌕</span> Scan this tab</button>
+    <div class="section-head"><h2>Detected media</h2><p id="status" aria-live="polite">Ready to scan</p></div>
+    <div id="list">
+      <div class="empty"><span class="empty-icon" aria-hidden="true">▣</span><strong>Nothing scanned yet</strong><p>Choose “Scan this tab” to look for accessible videos.</p></div>
+    </div>
+    <footer><span>Hiven · v0.1.1</span><a href="https://matthewcodergamer.github.io/Hiven/" target="_blank" rel="noreferrer">Visit website ↗</a></footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
 </html>
