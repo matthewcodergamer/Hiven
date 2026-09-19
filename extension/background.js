@@ -18,5 +18,19 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     );
     return true;
   }
+  if (message?.type === "hiven.detected" && Array.isArray(message.found)) {
+    const ready = message.found.filter((x) => x.downloadable).length;
+    chrome.action.setBadgeBackgroundColor({ color: "#b8c4ce" });
+    chrome.action.setBadgeText({ text: ready ? String(ready) : "" });
+    chrome.storage.local.set({
+      lastScan: {
+        at: Date.now(),
+        pageTitle: message.pageTitle || "",
+        found: message.found,
+      },
+    });
+    sendResponse({ ok: true });
+    return false;
+  }
   return false;
 });

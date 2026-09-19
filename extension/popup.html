@@ -4,13 +4,12 @@
     <meta charset="utf-8" />
     <title>Hiven</title>
     <style>
-      :root {
-        color-scheme: dark;
-      }
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
       body {
         margin: 0;
-        width: 320px;
-        font: 14px/1.45 "IBM Plex Sans", system-ui, sans-serif;
+        width: 340px;
+        font: 13px/1.45 "IBM Plex Sans", system-ui, sans-serif;
         background: #0b0c0e;
         color: #ecece6;
       }
@@ -18,34 +17,85 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 14px 16px 8px;
-        font-family: Syne, system-ui, sans-serif;
-        font-weight: 600;
-        letter-spacing: -0.03em;
+        padding: 14px 16px 10px;
       }
-      p {
+      header img { width: 20px; height: 20px; }
+      header strong {
+        font-family: Syne, system-ui, sans-serif;
+        font-size: 16px;
+        letter-spacing: -0.04em;
+      }
+      .sub {
         margin: 0;
-        padding: 0 16px 16px;
+        padding: 0 16px 12px;
         color: #8d9099;
-        font-size: 13px;
+        font-size: 12px;
       }
       button {
-        margin: 0 16px 16px;
         height: 40px;
-        width: calc(100% - 32px);
         border: 0;
         border-radius: 8px;
-        background: #b8c4ce;
-        color: #0b0c0e;
-        font-weight: 600;
+        font: 600 13px/1 "IBM Plex Sans", system-ui, sans-serif;
         cursor: pointer;
       }
+      #scan {
+        margin: 0 16px 12px;
+        width: calc(100% - 32px);
+        background: #b8c4ce;
+        color: #0b0c0e;
+      }
+      #scan:disabled { opacity: 0.55; cursor: default; }
+      #status {
+        margin: 0 16px 8px;
+        color: #6a6d76;
+        font-size: 12px;
+        min-height: 1.2em;
+      }
+      #list { padding: 0 10px 12px; }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px;
+        border-radius: 10px;
+      }
+      .row + .row { margin-top: 2px; }
+      .meta { min-width: 0; flex: 1; }
+      .meta p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .kind { color: #6a6d76; font-size: 11px; font-family: ui-monospace, monospace; }
+      .save, .held {
+        flex-shrink: 0;
+        height: 32px;
+        padding: 0 10px;
+        border-radius: 8px;
+      }
+      .save { background: #b8c4ce; color: #0b0c0e; }
+      .held { background: #1b1e25; color: #8d9099; }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 10px 16px 14px;
+        color: #6a6d76;
+        font-size: 11px;
+        border-top: 1px solid #2a2d36;
+      }
+      footer a { color: #b8c4ce; text-decoration: none; }
     </style>
   </head>
   <body>
-    <header>hiven</header>
-    <p>Scan this tab for accessible video. Hiven will not extract YouTube, defeat DRM, or bypass access controls.</p>
+    <header>
+      <img src="icons/icon32.png" alt="" width="20" height="20" />
+      <strong>hiven</strong>
+    </header>
+    <p class="sub">Scan this tab for accessible video. Hiven will not extract YouTube, defeat DRM, or bypass access controls.</p>
     <button id="scan" type="button">Scan this tab</button>
+    <p id="status"></p>
+    <div id="list"></div>
+    <footer>
+      <span>v0.1 · Load unpacked</span>
+      <a href="https://github.com/matthewcodergamer/Hiven" target="_blank" rel="noreferrer">GitHub</a>
+    </footer>
     <script src="popup.js"></script>
   </body>
 </html>
