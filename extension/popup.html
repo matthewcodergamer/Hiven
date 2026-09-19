@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hiven</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        width: 320px;
+        font: 14px/1.45 "IBM Plex Sans", system-ui, sans-serif;
+        background: #0b0c0e;
+        color: #ecece6;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 16px 8px;
+        font-family: Syne, system-ui, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      p {
+        margin: 0;
+        padding: 0 16px 16px;
+        color: #8d9099;
+        font-size: 13px;
+      }
+      button {
+        margin: 0 16px 16px;
+        height: 40px;
+        width: calc(100% - 32px);
+        border: 0;
+        border-radius: 8px;
+        background: #b8c4ce;
+        color: #0b0c0e;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>hiven</header>
+    <p>Scan this tab for accessible video. Hiven will not extract YouTube, defeat DRM, or bypass access controls.</p>
+    <button id="scan" type="button">Scan this tab</button>
+    <script src="popup.js"></script>
+  </body>
+</html>

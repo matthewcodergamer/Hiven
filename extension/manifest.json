@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Hiven",
+  "version": "0.1.0",
+  "description": "Detect accessible media, download when authorized, and watch for VPN exposure.",
+  "action": {
+    "default_title": "Hiven",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["activeTab", "scripting", "downloads", "storage"],
+  "optional_permissions": ["tabs"],
+  "optional_host_permissions": ["*://*/*"],
+  "icons": {}
+}
