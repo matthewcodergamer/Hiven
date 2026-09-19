@@ -15,7 +15,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -32,8 +32,7 @@ jobs:
           from pathlib import Path
 
           root = Path("extension")
-          manifest_path = root / "manifest.json"
-          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
           assert manifest.get("manifest_version") == 3, "Expected Manifest V3"
           for required in ("popup.html", "popup.js", "background.js", "content.js"):
               assert (root / required).is_file(), f"Missing {required}"
