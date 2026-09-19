@@ -1,10 +1,11 @@
-Hiven for Chrome — v0.1
+Hiven for Chrome — v0.1.1
 
-1. Unzip this file. You should see a folder named hiven.
-2. Open Chrome and go to chrome://extensions
-3. Turn on Developer mode (top right).
-4. Click Load unpacked.
-5. Select the hiven folder (the one that contains manifest.json).
+1. Unzip. You should see a folder named hiven.
+2. Chrome → Extensions → Developer mode.
+3. Load unpacked.
+4. Select the hiven folder (manifest.json + icons/ must be inside it).
+
+Website: https://matthewcodergamer.github.io/Hiven/
+Source: https://github.com/matthewcodergamer/Hiven
 
 Hiven will not extract YouTube, defeat DRM, or bypass access controls.
-Scan runs only when you click Scan this tab.

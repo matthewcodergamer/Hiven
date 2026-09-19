@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
   if (message?.type === "hiven.detected" && Array.isArray(message.found)) {
     const ready = message.found.filter((x) => x.downloadable).length;
-    chrome.action.setBadgeBackgroundColor({ color: "#b8c4ce" });
+    chrome.action.setBadgeBackgroundColor({ color: "#ff3b30" });
     chrome.action.setBadgeText({ text: ready ? String(ready) : "" });
     chrome.storage.local.set({
       lastScan: {

@@ -4,26 +4,17 @@ Detect accessible media. Download it when the site and format allow. Watch for V
 
 ## Links
 
-- **Website / source:** https://github.com/matthewcodergamer/Hiven
-- **Extension (repo):** https://github.com/matthewcodergamer/Hiven/tree/main/extension
-- **Repo zip:** https://github.com/matthewcodergamer/Hiven/archive/refs/heads/main.zip
+- **Website:** https://matthewcodergamer.github.io/Hiven/
+- **Source:** https://github.com/matthewcodergamer/Hiven
+- **Extension zip:** https://matthewcodergamer.github.io/Hiven/hiven-extension.zip
 
 ## Install the Chrome extension
 
-1. Download the extension zip from the Hiven dashboard (**Download extension**) or clone this repo.
-2. Unzip. You want the folder that contains `manifest.json` (`hiven/` or `extension/`).
-3. Chrome → `chrome://extensions` → Developer mode → **Load unpacked**.
+1. Download the zip from the website.
+2. Unzip. Open the `hiven` folder (it must contain `manifest.json` **and** `icons/`).
+3. Chrome → Extensions → Developer mode → **Load unpacked**.
 4. Select that folder.
 
+If Chrome says it cannot load `icons/icon16.png`, you selected the parent folder. Select the inner `hiven` folder.
+
 Scan runs only when you click **Scan this tab**. Hiven will not extract YouTube, defeat DRM, or bypass access controls.
-
-This is **v0.1**. It is not on the Chrome Web Store yet.
-
-## Status
-
-- Unified dashboard
-- HTML5 + direct-file detector
-- Direct downloads for authorized MP4/WebM files
-- Queue, pause, retry, history
-- VPN / IP monitoring and a WebRTC leak test
-- Free / Pro entitlements (local license: `HIVEN-PRO-DEV`)
