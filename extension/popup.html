@@ -8,7 +8,9 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        width: 340px;
+        width: 360px;
+        max-height: 580px;
+        overflow: auto;
         font: 13px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
         background: #f5f5f7;
         color: #1d1d1f;
@@ -16,8 +18,8 @@
       header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 16px 16px 8px;
+        gap: 10px;
+        padding: 16px 16px 12px;
       }
       header img { width: 28px; height: 28px; border-radius: 7px; }
       header strong {
@@ -25,58 +27,74 @@
         letter-spacing: -0.03em;
         font-weight: 600;
       }
-      .sub {
-        margin: 0;
-        padding: 0 16px 14px;
+      .chip {
+        margin-left: auto;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 980px;
+        background: #e8e8ed;
         color: #6e6e73;
-        font-size: 13px;
       }
+      .chip.ok { background: #e4f5e8; color: #248a3d; }
+      .chip.warn { background: #ffecea; color: #ff3b30; }
+      section {
+        margin: 0 16px 12px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px;
+      }
+      h2 {
+        margin: 0 0 10px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #86868b;
+      }
+      .sub { margin: 0 0 12px; color: #6e6e73; }
       button {
         border: 0;
         font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         cursor: pointer;
       }
-      #scan {
-        margin: 0 16px 12px;
-        width: calc(100% - 32px);
-        height: 40px;
+      button:disabled { opacity: 0.45; cursor: default; }
+      .primary, .ghost, .save, .held {
+        height: 36px;
         border-radius: 980px;
-        background: #ff3b30;
-        color: #fff;
+        padding: 0 14px;
       }
-      #scan:disabled { opacity: 0.45; cursor: default; }
-      #status {
-        margin: 0 16px 8px;
+      .primary { width: 100%; background: #ff3b30; color: #fff; }
+      .ghost { background: #ececef; color: #1d1d1f; }
+      .row-btns { display: flex; gap: 8px; }
+      .row-btns .ghost { flex: 1; }
+      #status, #ip-note {
+        margin: 8px 0 0;
         color: #86868b;
         font-size: 12px;
         min-height: 1.2em;
       }
-      #list { padding: 0 10px 12px; }
+      #list { display: flex; flex-direction: column; gap: 6px; }
       .row {
         display: flex;
         gap: 8px;
         align-items: center;
-        padding: 10px 8px;
-        border-radius: 12px;
-        background: #fff;
-        margin-bottom: 6px;
+        padding: 8px 4px;
       }
       .meta { min-width: 0; flex: 1; }
       .meta p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .kind { color: #86868b; font-size: 11px; }
-      .save, .held {
-        flex-shrink: 0;
-        height: 32px;
-        padding: 0 12px;
-        border-radius: 980px;
+      .kind { color: #86868b; font-size: 11px; white-space: normal; }
+      .save { flex-shrink: 0; background: #ff3b30; color: #fff; }
+      .held { flex-shrink: 0; background: #ececef; color: #6e6e73; }
+      .ip {
+        font: 600 22px/1.1 ui-monospace, "SF Mono", Menlo, monospace;
+        letter-spacing: -0.03em;
+        margin: 0 0 12px;
       }
-      .save { background: #ff3b30; color: #fff; }
-      .held { background: #ececef; color: #6e6e73; }
       footer {
         display: flex;
         justify-content: space-between;
-        gap: 8px;
-        padding: 12px 16px 16px;
+        padding: 4px 20px 16px;
         color: #86868b;
         font-size: 11px;
       }
@@ -87,13 +105,29 @@
     <header>
       <img src="icons/icon32.png" alt="" width="28" height="28" />
       <strong>Hiven</strong>
+      <span id="prot-chip" class="chip">IP</span>
     </header>
-    <p class="sub">Scan this tab for accessible video. Hiven will not extract YouTube, defeat DRM, or bypass access controls.</p>
-    <button id="scan" type="button">Scan this tab</button>
-    <p id="status"></p>
-    <div id="list"></div>
+
+    <section>
+      <h2>This tab</h2>
+      <p class="sub">Scan for accessible files. YouTube, DRM, and locked embeds stay held.</p>
+      <button id="scan" class="primary" type="button">Scan this tab</button>
+      <p id="status"></p>
+      <div id="list"></div>
+    </section>
+
+    <section>
+      <h2>Protection</h2>
+      <p id="ip" class="ip">—</p>
+      <div class="row-btns">
+        <button id="secure" class="ghost" type="button">Secure this IP</button>
+        <button id="leak" class="ghost" type="button">Check leak</button>
+      </div>
+      <p id="ip-note">Pin the address your VPN should keep. If it changes, Hiven marks you exposed.</p>
+    </section>
+
     <footer>
-      <span>v0.1.1</span>
+      <span>v0.1.2</span>
       <a href="https://matthewcodergamer.github.io/Hiven/" target="_blank" rel="noreferrer">Website</a>
     </footer>
     <script src="popup.js"></script>

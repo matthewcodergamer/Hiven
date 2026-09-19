@@ -1,11 +1,13 @@
-Hiven for Chrome — v0.1.1
+Hiven for Chrome — v0.1.2
 
 1. Unzip. You should see a folder named hiven.
 2. Chrome → Extensions → Developer mode.
 3. Load unpacked.
 4. Select the hiven folder (manifest.json + icons/ must be inside it).
+5. Click Hiven → Scan this tab, or Secure this IP.
+
+YouTube, DRM, and locked embeds stay Held. That is the product.
+Save is only for authorized MP4/WebM files, and opens Chrome’s save dialog.
 
 Website: https://matthewcodergamer.github.io/Hiven/
 Source: https://github.com/matthewcodergamer/Hiven
-
-Hiven will not extract YouTube, defeat DRM, or bypass access controls.

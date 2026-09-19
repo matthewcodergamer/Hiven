@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Hiven",
-  "version": "0.1.1",
-  "description": "Detect accessible media, download when authorized, and watch for VPN exposure.",
+  "version": "0.1.2",
+  "description": "Detect accessible media, download when authorized, and pin your IP against VPN drops.",
   "action": {
     "default_title": "Hiven",
     "default_popup": "popup.html",
@@ -25,5 +25,9 @@
   },
   "permissions": ["activeTab", "scripting", "downloads", "storage"],
   "optional_permissions": ["tabs"],
+  "host_permissions": [
+    "https://api.ipify.org/*",
+    "https://api64.ipify.org/*"
+  ],
   "optional_host_permissions": ["*://*/*"]
 }
